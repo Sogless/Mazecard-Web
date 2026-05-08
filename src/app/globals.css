@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --maze-yellow: #D4A100;
+  --maze-yellow-hover: #E5B310;
+  --maze-yellow-dim: #B38900;
+  --bg-primary: #0F1117;
+  --bg-secondary: #1A1D27;
+  --bg-card: #1E2130;
+  --bg-card-hover: #252838;
+  --border-color: #2A2D3A;
+  --border-hover: #3A3D4A;
+  --text-primary: #F1F1F3;
+  --text-secondary: #9A9CAE;
+  --text-muted: #6B6D7E;
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-maze-yellow: var(--maze-yellow);
+  --color-maze-yellow-hover: var(--maze-yellow-hover);
+  --color-maze-yellow-dim: var(--maze-yellow-dim);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-card: var(--bg-card);
+  --color-bg-card-hover: var(--bg-card-hover);
+  --color-border-color: var(--border-color);
+  --color-border-hover: var(--border-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+
+/* Utility classes */
+.maze-gradient {
+  background: linear-gradient(135deg, var(--maze-yellow) 0%, var(--maze-yellow-dim) 100%);
+}
+
+.card-glow:hover {
+  box-shadow: 0 0 20px rgba(212, 161, 0, 0.1);
 }

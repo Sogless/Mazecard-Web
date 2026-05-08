@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local database and keys
+mazecard.db
+maze
+maze.pub
+progress.md

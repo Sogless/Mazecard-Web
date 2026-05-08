@@ -1,65 +1,91 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useEffect } from "react";
+import Link from "next/link";
+import { trackEvent } from "@/lib/analytics";
+import Button from "@/components/ui/Button";
+
+export default function HomePage() {
+  useEffect(() => {
+    trackEvent("view_home");
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen">
+      {/* Hero */}
+      <section className="relative py-24 lg:py-32 px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-6 leading-tight">
+            Credit Card as a Service<br />
+            <span className="text-maze-yellow">for Cooperatives</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-lg md:text-xl text-text-secondary max-w-3xl mx-auto mb-10">
+            MazeCard empowers cooperatives with branded credit card programs that drive member engagement, increase revenue, and build financial inclusion across Africa.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button href="/cooperative/create" onClick={() => trackEvent("click_cta_cooperative")}>
+              Register Your Cooperative
+            </Button>
+            <Button href="/merchant/apply" variant="secondary" onClick={() => trackEvent("click_cta_merchant")}>
+              Become a Merchant
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Line */}
+      <section className="py-12 px-6 border-t border-border-color">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-sm text-text-muted">
+            Powered by Verve &amp; Mastercard networks &bull; PCI-DSS compliant &bull; CBN licensed partner
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Value Props */}
+      <section className="py-20 px-6 bg-bg-secondary">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-text-primary text-center mb-12">Why Cooperatives Choose MazeCard</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { title: "Member Engagement", desc: "Offer members a tangible benefit that increases loyalty and participation in cooperative activities." },
+              { title: "New Revenue Streams", desc: "Earn interchange revenue on every transaction made by your members at partner merchants." },
+              { title: "Financial Inclusion", desc: "Bring formal credit access to underserved communities through your trusted cooperative network." },
+            ].map((item, i) => (
+              <div key={i} className="bg-bg-card border border-border-color rounded-2xl p-8 hover:border-border-hover transition-colors card-glow">
+                <h3 className="text-xl font-semibold text-maze-yellow mb-3">{item.title}</h3>
+                <p className="text-text-secondary">{item.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </main>
+      </section>
+
+      {/* How It Works Preview */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-text-primary mb-6">Simple, Transparent Process</h2>
+          <p className="text-text-secondary mb-10 max-w-2xl mx-auto">
+            From registration to card issuance, we guide you through every step with dedicated support.
+          </p>
+          <Button href="/how-it-works" variant="outline">
+            See How It Works
+          </Button>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 px-6 bg-bg-secondary">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-text-primary mb-4">Ready to Transform Your Cooperative?</h2>
+          <p className="text-text-secondary mb-8">
+            Join the growing network of cooperatives leveraging MazeCard to serve their members better.
+          </p>
+          <Button href="/cooperative/create" onClick={() => trackEvent("click_cta_cooperative")}>
+            Get Started Today
+          </Button>
+        </div>
+      </section>
     </div>
   );
 }
