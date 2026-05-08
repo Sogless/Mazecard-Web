@@ -17,9 +17,10 @@ export async function getDataSource() {
   const { ContactMessage } = await import("@/entities/ContactMessage");
 
   dataSource = new DataSource({
-    type: "better-sqlite3",
-    database: process.env.DATABASE_PATH || "mazecard.db",
+    type: "postgres",
+    url: process.env.DATABASE_URL,
     synchronize: true,
+    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
     entities: [User, Cooperative, MerchantApplication, DemoBooking, Document, ContactMessage],
   });
 
