@@ -50,7 +50,7 @@ export default function MerchantApplyPage() {
     if (!form.address.trim()) e.address = "Address is required";
     if (!form.contact_name.trim()) e.contact_name = "Contact name is required";
     if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) e.email = "Valid email is required";
-    if (!form.phone.trim() || form.phone.length < 7) e.phone = "Phone number is required";
+    if (!form.phone.trim() || form.phone.length < 10) e.phone = "Phone number must be at least 10 digits";
     setErrors(e);
     return Object.keys(e).length === 0;
   }

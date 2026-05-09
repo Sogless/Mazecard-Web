@@ -26,12 +26,14 @@ export default function ContactPage() {
   function validate(): FormErrors {
     const errs: FormErrors = {};
     if (!form.name.trim()) errs.name = "Name is required.";
+    else if (form.name.trim().length < 2) errs.name = "Name must be at least 2 characters.";
     if (!form.email.trim()) {
       errs.email = "Email is required.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       errs.email = "Enter a valid email address.";
     }
     if (!form.message.trim()) errs.message = "Message is required.";
+    else if (form.message.trim().length < 10) errs.message = "Message must be at least 10 characters.";
     return errs;
   }
 
