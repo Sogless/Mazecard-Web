@@ -21,6 +21,7 @@ export default function ContactPage() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [apiError, setApiError] = useState("");
 
   function validate(): FormErrors {
     const errs: FormErrors = {};
@@ -41,6 +42,7 @@ export default function ContactPage() {
     if (Object.keys(errs).length > 0) return;
 
     setSubmitting(true);
+    setApiError("");
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -49,7 +51,12 @@ export default function ContactPage() {
       });
       if (res.ok) {
         setSubmitted(true);
+      } else {
+        const data = await res.json();
+        setApiError(data.error || "Something went wrong. Please try again.");
       }
+    } catch {
+      setApiError("Network error. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -88,6 +95,11 @@ export default function ContactPage() {
 
       {/* Form */}
       <section className="mx-auto max-w-lg px-6 py-16">
+        {apiError && (
+          <div className="mb-6 bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-400">
+            {apiError}
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-6" noValidate>
           {/* Name */}
           <div>

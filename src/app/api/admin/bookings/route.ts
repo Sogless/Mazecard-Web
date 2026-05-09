@@ -11,7 +11,7 @@ export async function GET() {
 
     const ds = await getDataSource();
     const { DemoBooking } = await import("@/entities/DemoBooking");
-    const items = await ds.getRepository(DemoBooking).find({ order: { createdAt: "DESC" }, relations: ["cooperative"] });
+    const items = await ds.getRepository(DemoBooking).find({ order: { createdAt: "DESC" } });
     return NextResponse.json(items);
   } catch (err) {
     console.error("Admin bookings error:", err);
