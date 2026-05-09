@@ -5,6 +5,7 @@ import { getDataSource } from "./db";
 import { User } from "@/entities/User";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   providers: [
     Credentials({
       name: "credentials",
