@@ -5,7 +5,7 @@ export class Cooperative {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column()
+  @Column({ nullable: true })
   userId: string;
 
   @Column()
