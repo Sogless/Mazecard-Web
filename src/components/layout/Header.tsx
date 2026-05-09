@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useSession, signOut } from "next-auth/react";
 import Button from "@/components/ui/Button";
 
 const navLinks = [
@@ -15,6 +16,7 @@ const navLinks = [
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { data: session } = useSession();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-bg-primary/80 backdrop-blur-md border-b border-border-color">
@@ -41,8 +43,17 @@ export default function Header() {
           </nav>
 
           <div className="hidden lg:flex items-center gap-3">
-            <Button variant="outline" href="/signin">Sign In</Button>
-            <Button href="/cooperative/create">Get Started</Button>
+            {session ? (
+              <>
+                <Button variant="outline" href="/cooperative/dashboard">Dashboard</Button>
+                <Button variant="secondary" onClick={() => signOut({ callbackUrl: "/" })}>Sign Out</Button>
+              </>
+            ) : (
+              <>
+                <Button variant="outline" href="/signin">Sign In</Button>
+                <Button href="/cooperative/create">Get Started</Button>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -76,8 +87,17 @@ export default function Header() {
               </Link>
             ))}
             <div className="pt-3 border-t border-border-color flex flex-col gap-2">
-              <Button variant="outline" href="/signin">Sign In</Button>
-              <Button href="/cooperative/create">Get Started</Button>
+              {session ? (
+                <>
+                  <Button variant="outline" href="/cooperative/dashboard" onClick={() => setMobileOpen(false)}>Dashboard</Button>
+                  <Button variant="secondary" onClick={() => { setMobileOpen(false); signOut({ callbackUrl: "/" }); }}>Sign Out</Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="outline" href="/signin">Sign In</Button>
+                  <Button href="/cooperative/create">Get Started</Button>
+                </>
+              )}
             </div>
           </div>
         </div>
