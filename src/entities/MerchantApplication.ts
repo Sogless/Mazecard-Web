@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from "typeorm";
 
-@Entity()
+@Entity({ name: "MerchantApplication" })
 export class MerchantApplication {
   @PrimaryGeneratedColumn("uuid")
   id: string;
