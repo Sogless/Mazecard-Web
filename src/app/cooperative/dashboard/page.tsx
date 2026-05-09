@@ -11,7 +11,6 @@ export default async function DashboardPage() {
 
   const ds = await getDataSource();
   const { Cooperative } = await import("@/entities/Cooperative");
-  const { User } = await import("@/entities/User");
   const coopRepo = ds.getRepository(Cooperative);
 
   let coop = await coopRepo.findOne({ where: { userId: session.user.id } });
