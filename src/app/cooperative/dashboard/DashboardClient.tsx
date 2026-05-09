@@ -5,6 +5,7 @@ import Button from "@/components/ui/Button";
 import { trackEvent } from "@/lib/analytics";
 
 type CoopData = {
+  id: string;
   name: string;
   address: string;
   state: string | null;
@@ -69,6 +70,7 @@ export default function DashboardClient({ coop }: { coop: CoopData }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          cooperative_id: coop.id,
           topics: selectedTopics,
           preferred_date: preferredDate,
           timezone,

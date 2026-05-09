@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 import { demoBookingSchema } from "@/lib/validators";
 import { getDataSource } from "@/lib/db";
 import { auth } from "@/lib/auth";
+import { z } from "zod";
+
+const bookingSchema = demoBookingSchema.extend({
+  cooperative_id: z.string().uuid(),
+});
 
 export async function POST(request: Request) {
   try {
@@ -11,7 +16,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const parsed = demoBookingSchema.safeParse(body);
+    const parsed = bookingSchema.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -20,18 +25,18 @@ export async function POST(request: Request) {
       );
     }
 
+    const data = parsed.data;
     const ds = await getDataSource();
     const { Cooperative } = await import("@/entities/Cooperative");
     const { DemoBooking } = await import("@/entities/DemoBooking");
 
     const coopRepo = ds.getRepository(Cooperative);
-    const coop = await coopRepo.findOne({ where: { userId: session.user.id } });
+    const coop = await coopRepo.findOne({ where: { id: data.cooperative_id } });
 
     if (!coop) {
       return NextResponse.json({ error: "Cooperative not found" }, { status: 404 });
     }
 
-    const data = parsed.data;
     const bookingRepo = ds.getRepository(DemoBooking);
     const booking = new DemoBooking();
     booking.cooperativeId = coop.id;

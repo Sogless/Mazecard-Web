@@ -19,6 +19,7 @@ export default async function DashboardPage() {
   }
 
   const coopData = {
+    id: coop.id,
     name: coop.name,
     address: coop.address,
     state: coop.state,
