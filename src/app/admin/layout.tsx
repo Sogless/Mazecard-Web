@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 const navItems = [
   { label: "Dashboard", href: "/admin", icon: "grid" },
@@ -25,6 +25,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <div className="min-h-screen flex items-center justify-center"><p className="text-text-secondary">Loading...</p></div>;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  if (!session || !(session.user as any)?.isAdmin) {
+    router.replace("/signin");
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex bg-bg-primary">
