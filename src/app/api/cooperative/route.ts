@@ -46,7 +46,6 @@ export async function POST(request: Request) {
 
     const coopRepo = ds.getRepository(Cooperative);
     const coop = new Cooperative();
-    coop.user = user;
     coop.userId = user.id;
     coop.name = data.cooperative_name;
     coop.address = data.address;

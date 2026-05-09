@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
 
 @Entity({ name: "Document" })
 export class Document {
@@ -19,14 +19,6 @@ export class Document {
 
   @Column({ nullable: true })
   merchantApplicationId: string;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @ManyToOne("Cooperative", "documents", { nullable: true })
-  cooperative: any;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @ManyToOne("MerchantApplication", "documents", { nullable: true })
-  merchantApplication: any;
 
   @CreateDateColumn()
   createdAt: Date;

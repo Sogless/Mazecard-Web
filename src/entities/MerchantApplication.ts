@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
 
 @Entity({ name: "MerchantApplication" })
 export class MerchantApplication {
@@ -28,10 +28,6 @@ export class MerchantApplication {
 
   @Column({ default: "RECEIVED" })
   status: string;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @OneToMany("Document", "merchantApplication")
-  documents: any[];
 
   @CreateDateColumn()
   createdAt: Date;

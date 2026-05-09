@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
 
 @Entity({ name: "DemoBooking" })
 export class DemoBooking {
@@ -7,10 +7,6 @@ export class DemoBooking {
 
   @Column()
   cooperativeId: string;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @ManyToOne("Cooperative", "demoBookings")
-  cooperative: any;
 
   @Column()
   preferredDate: string;

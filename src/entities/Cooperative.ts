@@ -1,14 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToOne, JoinColumn, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
 
 @Entity({ name: "Cooperative" })
 export class Cooperative {
   @PrimaryGeneratedColumn("uuid")
   id: string;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @OneToOne("User", "cooperative")
-  @JoinColumn({ name: "userId" })
-  user: any;
 
   @Column()
   userId: string;
@@ -60,14 +55,6 @@ export class Cooperative {
 
   @Column({ default: "CREATED" })
   status: string;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @OneToMany("DemoBooking", "cooperative")
-  demoBookings: any[];
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @OneToMany("Document", "cooperative")
-  documents: any[];
 
   @CreateDateColumn()
   createdAt: Date;

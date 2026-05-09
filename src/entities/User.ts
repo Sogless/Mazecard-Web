@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
 
 @Entity({ name: "User" })
 export class User {
@@ -13,10 +13,6 @@ export class User {
 
   @Column({ default: false })
   isAdmin: boolean;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @OneToOne("Cooperative", "user")
-  cooperative: any;
 
   @CreateDateColumn()
   createdAt: Date;
